@@ -14,6 +14,6 @@ namespace Orders.Shared.Entities
         [Display(Name = "Pais")]
         [MaxLength(100)]
         [Required(ErrorMessage = "el campo {0} es requerido.")]
-        public int Name { get; set; }
+        public string Name { get; set; }
     }
 }
