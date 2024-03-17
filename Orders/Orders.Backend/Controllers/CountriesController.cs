@@ -54,6 +54,7 @@ namespace Orders.Backend.Controllers
                 return NotFound();
             }
             _context.Remove(country);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
     }
