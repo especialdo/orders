@@ -10,6 +10,7 @@ namespace Orders.Backend.Data
         }
 
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         /**
          * Metodo para hacer que el nombre sea unico en la base de datos
@@ -18,6 +19,7 @@ namespace Orders.Backend.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Country>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<Category>().HasIndex(x => x.Name).IsUnique();
         }
     }
 }
