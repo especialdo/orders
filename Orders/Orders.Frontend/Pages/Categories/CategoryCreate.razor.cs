@@ -1,23 +1,26 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
+using Orders.Frontend.Pages.Countries;
 using Orders.Frontend.Repositories;
 using Orders.Frontend.Shared;
 using Orders.Shared.Entities;
 
-namespace Orders.Frontend.Pages.Countries
+namespace Orders.Frontend.Pages.Categories
 {
-    public partial class CountryCreate
+    public partial class CategoryCreate
     {
-        private Country country = new();
+        private Category category = new();
 
-        private FormWithName<Country>? countryForm;
+        private FormWithName<Category>? categoryForm;
         [Inject] private IRepository repository { get; set; } = null!;
         [Inject] private SweetAlertService sweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
 
-        private async Task CreateAsync() {
-            var responseHttp = await repository.PostAsync("/api/countries", country);
-            if (responseHttp.Error) { 
+        private async Task CreateAsync()
+        {
+            var responseHttp = await repository.PostAsync("/api/categories", category);
+            if (responseHttp.Error)
+            {
                 var message = await responseHttp.GetErrorMessageAsync();
                 await sweetAlertService.FireAsync("Error", message);
                 return;
@@ -29,14 +32,15 @@ namespace Orders.Frontend.Pages.Countries
                 Position = SweetAlertPosition.BottomEnd,
                 ShowConfirmButton = true,
                 Timer = 3000
-            });;
+            }); ;
 
             await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con exito");
         }
 
         private void Return()
         {
-            NavigationManager.NavigateTo("/countries");
+            categoryForm.FormPostedSuccessfully = true;
+            NavigationManager.NavigateTo("/categories");
         }
     }
 }
