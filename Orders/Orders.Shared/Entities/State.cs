@@ -8,18 +8,20 @@ using System.Threading.Tasks;
 
 namespace Orders.Shared.Entities
 {
-    public class Country: IEntityWithName
+    public class State : IEntityWithName
     {
         public int Id { get; set; }
 
-        [Display(Name = "Pais")]
+        [Display(Name = "Departamento / Estado")]
         [MaxLength(100, ErrorMessage = "El campo{0} no puede tener mas de {1} caracteres")]
         [Required(ErrorMessage = "el campo {0} es requerido.")]
         public string Name { get; set; } = null!;
-        
-        public ICollection<State>? States { get; set; }
+        public int CountryId { get; set; }
+        public Country? Country { get; set; }
 
-        [Display(Name = "Departamentos / Estados")]
-        public int StatesNumber => States == null || States.Count == 0 ? 0 : States.Count;
+        public ICollection<City>? Cities { get; set; }
+
+        [Display(Name = "Ciudades")]
+        public int StatesNumber => Cities == null || Cities.Count == 0 ? 0 : Cities.Count;
     }
 }
