@@ -21,8 +21,8 @@ else
                         <thead>
                             <tr>
                                 <th>Estado / Departamento</th>
-                                <th style="width:90px">Ciudades</th>
-                                <th style="width:168px"></th>
+                                <th>Ciudades</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,6 +33,7 @@ else
                                     <td>@state.CitiesNumber</td>
                                     <td>
                                         <a class="btn btn-warning btn-sm" href="/states/edit/@state.Id"><i class="bi bi-pencil" /> Editar</a>
+                                        <a class="btn btn-info btn-sm" href="/states/details/@state.Id">Detalles</a>
                                         <button class="btn btn-danger btn-sm" @onclick=@(() => DeleteAsync(state))><i class="bi bi-trash" /> Borrar</button>
                                     </td>
                                 </tr>
