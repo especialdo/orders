@@ -7,6 +7,9 @@ namespace Orders.Frontend.Pages.Countries
 {
     public partial class CountriesIndex
     {
+        private int currentPage = 1;
+        private int totalPages;
+
         [Inject] private IRepository repository { get; set; } = null!;
         public List<Country>? Countries { get; set; }
         [Inject] private SweetAlertService sweetAlertService { get; set; } = null!;
@@ -18,7 +21,47 @@ namespace Orders.Frontend.Pages.Countries
             
         }
 
-        private async Task LoadAsync()
+        private async Task SelectedPageAsync(int page)
+        {
+            currentPage = page;
+            await LoadAsync(page);
+
+        }
+        private async Task LoadAsync(int page = 1)
+        {
+            var ok = await LoadListAsync(page);
+            if (ok)
+            {
+                await LoadPagesAsync();
+            }
+        }
+
+        private async Task<bool> LoadListAsync(int page)
+        {
+            var responseHttp = await repository.GetAsync<List<Country>>($"api/countries?page={page}");
+            if (responseHttp.Error)
+            {
+                var message = await responseHttp.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+                return false;
+            }
+            Countries = responseHttp.Response;
+            return true;
+        }
+
+        private async Task LoadPagesAsync()
+        {
+            var responseHttp = await repository.GetAsync<int>("api/countries/totalPages");
+            if (responseHttp.Error)
+            {
+                var message = await responseHttp.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+                return;
+            }
+            totalPages = responseHttp.Response;
+        }
+
+        /*private async Task LoadAsync(int page = 1)
         {
             await base.OnInitializedAsync();
             var responseHttp = await repository.GetAsync<List<Country>>("api/Countries");
@@ -28,7 +71,7 @@ namespace Orders.Frontend.Pages.Countries
                 return;
             }
             Countries = responseHttp.Response;
-        }
+        }*/
 
         private async Task DeleteAsync(Country country) {
             var result = await sweetAlertService.FireAsync(new SweetAlertOptions
