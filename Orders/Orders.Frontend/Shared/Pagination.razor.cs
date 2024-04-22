@@ -5,12 +5,12 @@ namespace Orders.Frontend.Shared
     public partial class Pagination
     {
         private List<PageModel> links = null!;
-        [Parameter] public int CurrentPage { get; set; }
-        [Parameter] public int TotalPages { get; set; }
-        [Parameter] public int Radio { get; set; }
+        [Parameter] public int CurrentPage { get; set; } = 1;
+        [Parameter] public int TotalPages { get; set; } = 1;
+        [Parameter] public int Radio { get; set; } = 10;
         [Parameter] public EventCallback<int> SelectPage { get; set; }
 
-        protected override void OnParametersSet() 
+        protected override void OnParametersSet()
         {
             links = new List<PageModel>();
 
@@ -20,14 +20,38 @@ namespace Orders.Frontend.Shared
                 Page = CurrentPage - 1,
                 Enable = CurrentPage != 1
             });
+
             for (int i = 1; i <= TotalPages; i++)
             {
-                links.Add(new PageModel
+                if (TotalPages <= Radio)
                 {
-                    Text = $"{i}",
-                    Page = i,
-                    Enable = i == CurrentPage
-                });
+                    links.Add(new PageModel
+                    {
+                        Page = i,
+                        Enable = CurrentPage == i,
+                        Text = $"{i}"
+                    });
+                }
+
+                if (TotalPages > Radio && i <= Radio && CurrentPage <= Radio)
+                {
+                    links.Add(new PageModel
+                    {
+                        Page = i,
+                        Enable = CurrentPage == i,
+                        Text = $"{i}"
+                    });
+                }
+
+                if (CurrentPage > Radio && i > CurrentPage - Radio && i <= CurrentPage)
+                {
+                    links.Add(new PageModel
+                    {
+                        Page = i,
+                        Enable = CurrentPage == i,
+                        Text = $"{i}"
+                    });
+                }
             }
 
             links.Add(new PageModel

@@ -15,8 +15,12 @@ else
             </span>
         </div>
         <div class="card-body">
-            <GenericList MyList="country.States!.ToList()">
+            <GenericList MyList="states!">
                 <Body>
+                    <Pagination CurrentPage="currentPage"
+                                TotalPages="totalPages"
+                                SelectPage="SelectedPageAsync" />
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -26,7 +30,7 @@ else
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var state in country.States!)
+                            @foreach (var state in states!)
                             {
                                 <tr>
                                     <td><a href="/states/details/@state.Id">@state.Name</a></td>
