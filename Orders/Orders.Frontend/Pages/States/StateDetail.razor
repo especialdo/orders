@@ -15,8 +15,12 @@ else
             </span>
         </div>
         <div class="card-body">
-            <GenericList MyList="state.Cities!.ToList()">
+            <GenericList MyList="cities!">
                 <Body>
+                    <Pagination CurrentPage="currentPage"
+                                TotalPages="totalPages"
+                                SelectPage="SelectedPageAsync" />
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -26,7 +30,7 @@ else
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var city in state.Cities!)
+                            @foreach (var city in cities!)
                             {
                                 <tr>
                                     <td>@city.Name</td>

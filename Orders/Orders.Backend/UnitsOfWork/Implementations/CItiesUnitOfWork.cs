@@ -6,11 +6,11 @@ using Orders.Shared.Responses;
 
 namespace Orders.Backend.UnitsOfWork.Implementations
 {
-    public class CItiesUnitOfWork : GenericUnitOfWork<City>, ICItiesUnitOfWork
+    public class CitiesUnitOfWork : GenericUnitOfWork<City>, ICitiesUnitOfWork
     {
         private readonly ICitiesRepository _citiesRepository;
 
-        public CItiesUnitOfWork(IGenericRepository<City> repository, ICitiesRepository citiesRepository) : base(repository)
+        public CitiesUnitOfWork(IGenericRepository<City> repository, ICitiesRepository citiesRepository) : base(repository)
         {
             _citiesRepository = citiesRepository;
         }

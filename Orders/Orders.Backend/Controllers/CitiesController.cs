@@ -11,12 +11,13 @@ namespace Orders.Backend.Controllers
     [Route("api/[controller]")]
     public class CitiesController : GenericController<City>
     {
-        private readonly ICItiesUnitOfWork _citiesUnitOfWork;
+        private readonly ICitiesUnitOfWork _citiesUnitOfWork;
 
-        public CitiesController(IGenericUnitOfWork<City> unitOfWork, ICItiesUnitOfWork citiesUnitOfWork) : base(unitOfWork)
+        public CitiesController(IGenericUnitOfWork<City> unitOfWork, ICitiesUnitOfWork citiesUnitOfWork) : base(unitOfWork)
         {
             _citiesUnitOfWork = citiesUnitOfWork;
         }
+
         [HttpGet]
         public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
