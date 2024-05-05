@@ -20,6 +20,11 @@ else
                     <Pagination CurrentPage="currentPage"
                                 TotalPages="totalPages"
                                 SelectPage="SelectedPageAsync" />
+                    <div>
+                        <input placeholder="buscar ciudad" @bind-value="Filter" />
+                        <button @onclick="ApplyFilterAsync">Filtrar</button>
+                        <button @onclick="CleanFilterAsync">Limpiar</button>
+                    </div>
 
                     <table class="table table-striped">
                         <thead>
